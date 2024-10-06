@@ -1,0 +1,1 @@
+# StringSerializableEnum
