@@ -1,6 +1,32 @@
 # StringSerializableEnum
 
-WIP
+## 使い方
+
+StringとしてシリアライズしたいEnumに `StringSerializableAttribute` をつけます。
+
+```csharp
+[StringSerializable]
+public enum TestEnum
+{
+    One,
+    Two,
+    Three,
+}
+```
+
+`StringSerializable{Enum名}` という型が自動生成されるので、それをシリアライズしてお使いください。
+
+```csharp
+public class TestMonoBehaviour : MonoBehaviour
+{
+    [SerializeField] private StringSerializableTestEnum testEnum;
+
+    public void Start()
+    {
+        Debug.Log($"Value is {testEnum.Value}");
+    }
+}
+```
 
 ## Installation
 
