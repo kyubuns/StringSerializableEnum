@@ -1,4 +1,5 @@
 using System;
+using StringSerializableEnum;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Sandbox
         }
     }
 
+    [StringSerializable]
     public enum TestEnum
     {
         Zero,
