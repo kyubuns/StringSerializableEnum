@@ -80,11 +80,13 @@ public class StringSerializableGenerator : IIncrementalGenerator
         sb.AppendLine("                {");
         sb.AppendLine("                    _cached = stringValue switch");
         sb.AppendLine("                    {");
+        sb.AppendLine("#if !INSPECT_CODE");
         foreach (var member in enumInfo.Members)
         {
             sb.AppendLine($"                        \"{member}\" => {enumInfo.EnumName}.{member},");
         }
-        sb.AppendLine($"                    _ => throw new ArgumentOutOfRangeException($\"\\\"{{stringValue}}\\\" is not a valid value for {enumInfo.EnumName}\")");
+        sb.AppendLine("#endif");
+        sb.AppendLine($"                        _ => throw new ArgumentOutOfRangeException($\"\\\"{{stringValue}}\\\" is not a valid value for {enumInfo.EnumName}\")");
         sb.AppendLine("                    };");
         sb.AppendLine("                }");
         sb.AppendLine("                return _cached.Value;");
@@ -94,10 +96,12 @@ public class StringSerializableGenerator : IIncrementalGenerator
         sb.AppendLine("                _cached = value;");
         sb.AppendLine("                stringValue = value switch");
         sb.AppendLine("                {");
+        sb.AppendLine("#if !INSPECT_CODE");
         foreach (var member in enumInfo.Members)
         {
             sb.AppendLine($"                    {enumInfo.EnumName}.{member} => \"{member}\",");
         }
+        sb.AppendLine("#endif");
         sb.AppendLine($"                    _ => throw new ArgumentOutOfRangeException($\"\\\"{{stringValue}}\\\" is not a valid value for {enumInfo.EnumName}\")");
         sb.AppendLine("                };");
         sb.AppendLine("            }");
